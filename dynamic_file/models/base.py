@@ -14,6 +14,3 @@ class DynamicFileBase(models.Model):
         null=True,
         help_text=_('The owner/uploader of this file')
     )
-
-    class Meta:
-        abstract = True

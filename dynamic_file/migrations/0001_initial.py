@@ -39,16 +39,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='DynamicFile',
+            name='DynamicFileBase',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(blank=True, help_text='A description for this file')),
-                ('file', models.FileField(help_text='The uploaded file', storage='dynamic_file.storage.filesystem_storage', upload_to='')),
                 ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, to=DYNAMIC_FILE_UPLOADED_BY_MODEL)),
-            ],
-            options={
-                'abstract': False,
-                'swappable': swapper.swappable_setting('auth', 'User'),
-            },
+            ]
         ),
     ]
