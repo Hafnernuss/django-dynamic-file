@@ -9,6 +9,6 @@ if not hasattr(settings, 'DYNAMIC_FILE_FALLBACK_METHOD'):
 if not hasattr(settings, 'DYNAMIC_FILE_UPLOADED_BY'):
     setattr(settings, 'DYNAMIC_FILE_UPLOADED_BY', settings.AUTH_USER_MODEL)
 
-if not hasattr(settings, 'DYNAMIC_FILE_STORAGE'):
-    setattr(settings, 'DYNAMIC_FILE_STORAGE', 'dynamic_file.storage.filesystem_storage')
+if not hasattr(settings, 'DYNAMIC_FILE_STORAGE_CLASS'):
+    setattr(settings, 'DYNAMIC_FILE_STORAGE_CLASS', 'dynamic_file.storage.filesystem_storage')
 
