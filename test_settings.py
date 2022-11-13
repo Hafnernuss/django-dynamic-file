@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'test_app',
+    
     'dynamic_file',
 ]
 
@@ -123,3 +124,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# dynamic_file settings:
+DYNAMIC_FILE_STORAGE_LOCATION = 'test_files'
+DYNAMIC_FILE_UPLOADED_BY = 'test_app.TestModel'

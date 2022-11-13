@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.conf import settings
 
+import swapper
 class DynamicFileBase(models.Model):
     description = models.TextField(
         blank=True,

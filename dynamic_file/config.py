@@ -12,3 +12,6 @@ if not hasattr(settings, 'DYNAMIC_FILE_UPLOADED_BY'):
 if not hasattr(settings, 'DYNAMIC_FILE_STORAGE_CLASS'):
     setattr(settings, 'DYNAMIC_FILE_STORAGE_CLASS', 'dynamic_file.storage.filesystem_storage')
 
+if not hasattr(settings, 'DYNAMIC_FILE_STORAGE_LOCATION'):
+    setattr(settings, 'DYNAMIC_FILE_STORAGE_LOCATION', 'files')
+
