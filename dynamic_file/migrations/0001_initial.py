@@ -4,11 +4,12 @@ from django.db import migrations, models
 import django.db.models.deletion
 from django.conf import settings
 
+from dynamic_file import config
+
 # Heavily inspired by https://github.com/dj-stripe/dj-stripe/blob/master/djstripe/migrations/0001_initial.py
 
-DYNAMIC_FILE_UPLOADED_BY_MODEL = settings.AUTH_USER_MODEL
-DYNAMIC_FILE_UPLOADED_BY_DEPENDENT_MIGRATION = DYNAMIC_FILE_UPLOADED_BY_MODEL
-
+DYNAMIC_FILE_UPLOADED_BY_MODEL = settings.DYNAMIC_FILE_UPLOADED_BY_MODEL
+DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME
 DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY = settings.DYNAMIC_FILE_UPLOADED_BY_MIGRATION_DEPENDENCY
 
 
@@ -20,7 +21,7 @@ if DYNAMIC_FILE_UPLOADED_BY_MODEL != settings.AUTH_USER_MODEL:
     DYNAMIC_FILE_UPLOADED_BY_MODEL_DEPENDENCY = migrations.migration.SwappableTuple(
         (
             DYNAMIC_FILE_UPLOADED_BY_MODEL.split('.', 1)[0],
-            DYNAMIC_FILE_UPLOADED_BY_MODEL_DEPENDENCY,
+            DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY,
         ),
         DYNAMIC_FILE_UPLOADED_BY_MODEL,
     )
@@ -40,7 +41,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(blank=True, help_text='A description for this file')),
-                ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, to=DYNAMIC_FILE_UPLOADED_BY_MODEL, related_name=settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME)),
+                ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, to=DYNAMIC_FILE_UPLOADED_BY_MODEL, related_name=DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME)),
             ]
         ),
     ]

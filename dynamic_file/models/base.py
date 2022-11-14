@@ -8,7 +8,7 @@ class DynamicFileBase(models.Model):
         help_text=_('A description for this file')
     )
 
-    uploaded_by = models.ForeignKey(settings.DYNAMIC_FILE_UPLOADED_BY,
+    uploaded_by = models.ForeignKey(settings.DYNAMIC_FILE_UPLOADED_BY_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         related_name=settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME,
