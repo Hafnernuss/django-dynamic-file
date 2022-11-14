@@ -3,17 +3,14 @@
 from django.db import migrations, models
 import django.db.models.deletion
 from django.conf import settings
-import swapper
-
 
 # Heavily inspired by https://github.com/dj-stripe/dj-stripe/blob/master/djstripe/migrations/0001_initial.py
 
-DYNAMIC_FILE_UPLOADED_BY_MODEL = getattr(settings, 'DYNAMIC_FILE_UPLOADED_BY', settings.AUTH_USER_MODEL)
+DYNAMIC_FILE_UPLOADED_BY_MODEL = settings.AUTH_USER_MODEL
 DYNAMIC_FILE_UPLOADED_BY_DEPENDENT_MIGRATION = DYNAMIC_FILE_UPLOADED_BY_MODEL
 
-DYNAMIC_FILE_UPLOADED_BY_MODEL_MODEL_MIGRATION_DEPENDENCY = getattr(
-    settings, 'DYNAMIC_FILE_UPLOADED_BY_MIGRATION_DEPENDENCY', '__first__'
-)
+DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY = settings.DYNAMIC_FILE_UPLOADED_BY_MIGRATION_DEPENDENCY
+
 
 DYNAMIC_FILE_UPLOADED_BY_MODEL_DEPENDENCY = migrations.swappable_dependency(
     DYNAMIC_FILE_UPLOADED_BY_MODEL
@@ -34,7 +31,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('test_app', '0001_initial'),
+        DYNAMIC_FILE_UPLOADED_BY_MODEL_DEPENDENCY
     ]
 
     operations = [
@@ -43,7 +40,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(blank=True, help_text='A description for this file')),
-                ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, to=DYNAMIC_FILE_UPLOADED_BY_MODEL)),
+                ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, to=DYNAMIC_FILE_UPLOADED_BY_MODEL, related_name=settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME)),
             ]
         ),
     ]
