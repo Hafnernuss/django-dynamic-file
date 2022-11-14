@@ -130,3 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DYNAMIC_FILE_STORAGE_LOCATION = 'test_files'
 
 DYNAMIC_FILE_UPLOADED_BY_MODEL = 'test_app.TestModel'
+DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = 'files_uploaded'
