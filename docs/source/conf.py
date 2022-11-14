@@ -4,7 +4,13 @@
 
 import os
 import sys
+import django
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'test_settings'
+django.setup()
+
 
 project = 'django-dynamic-file'
 copyright = '2022, Philipp Hafner'
