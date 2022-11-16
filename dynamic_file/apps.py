@@ -1,5 +1,8 @@
 from django.apps import AppConfig
+
 from dynamic_file import config
+
+config.settings
 
 
 class DynamicFileConfig(AppConfig):
