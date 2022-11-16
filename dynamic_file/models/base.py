@@ -32,3 +32,6 @@ class DynamicFileBase(models.Model):
 
     NOTE: Changing those settings is only supported _before_ running the first migration
     '''
+
+    class Meta:
+        abstract = True
