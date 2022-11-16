@@ -2,9 +2,10 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.conf import settings
 
+
 class DynamicFileBase(models.Model):
     '''
-    Base model for handling dynamic files. Should not be used on it's own by 
+    Base model for handling dynamic files. Should not be used on it's own by
     consuming applications.
     '''
 
@@ -16,7 +17,8 @@ class DynamicFileBase(models.Model):
     A concise and optional description of the uploaded file.
     '''
 
-    uploaded_by = models.ForeignKey(settings.DYNAMIC_FILE_UPLOADED_BY_MODEL,
+    uploaded_by = models.ForeignKey(
+        settings.DYNAMIC_FILE_UPLOADED_BY_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         related_name=settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME,
@@ -30,3 +32,6 @@ class DynamicFileBase(models.Model):
 
     NOTE: Changing those settings is only supported _before_ running the first migration
     '''
+
+    class Meta:
+        abstract = True

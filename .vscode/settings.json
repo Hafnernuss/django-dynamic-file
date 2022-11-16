@@ -1,0 +1,9 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "files.trimTrailingWhitespace": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--exclude=*/migrations/*.py"
+    ],
+}
