@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'test_app',
-    
+
     'dynamic_file',
 ]
 
@@ -128,6 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # dynamic_file settings:
 DYNAMIC_FILE_STORAGE_LOCATION = 'test_files'
-
 DYNAMIC_FILE_UPLOADED_BY_MODEL = 'test_app.TestModel'
 DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = 'files_uploaded'
+DEFAULT_FILE_STORAGE = 'dynamic_file.storage.DynamicFileSystemStorage'

@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(blank=True, help_text='A description for this file')),
-                ('file', models.FileField(help_text='The uploaded file', storage='dynamic_file.storage.filesystem_storage', upload_to='')),
+                ('file', models.FileField(help_text='The uploaded file', upload_to='')),
                 ('uploaded_by', models.ForeignKey(help_text='The owner/uploader of this file', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name=DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME, to=DYNAMIC_FILE_UPLOADED_BY_MODEL)),
             ],
             options={
