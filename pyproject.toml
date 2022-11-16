@@ -1,8 +1,0 @@
-[build-system]
-requires = ["]
-build-backend = "flit_core.buildapi"
-
-[project]
-name = "django-dynamic-file"
-authors = [{name = "Philipp Hafner", email = "philipp@hafner.xyz"}]
-dynamic = ["version", "description"]
