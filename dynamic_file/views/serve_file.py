@@ -2,7 +2,8 @@ from django.conf import settings
 from django.http.response import FileResponse
 from django.http.response import HttpResponse
 
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+# from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.views import APIView
 
 from dynamic_file.models import DynamicFile
 
@@ -10,7 +11,7 @@ import mimetypes
 import os
 
 
-class ServeDynamicContentMixin():
+class _DynamicContentMixin():
     _Model = DynamicFile
     permission_classes = []
 
@@ -34,7 +35,8 @@ class ServeDynamicContentMixin():
             return None
         return qs.first()
 
-    def retrieve(self, request, *args, **kwargs):
+class ServeDynamicFile(_DynamicContentMixin, APIView):
+    def get(self, request, *args, **kwargs):
         instance = self.get_object()
         filename = None
         if instance:
