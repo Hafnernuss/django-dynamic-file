@@ -35,6 +35,7 @@ class _DynamicContentMixin():
             return None
         return qs.first()
 
+
 class ServeDynamicFile(_DynamicContentMixin, APIView):
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -50,8 +51,8 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
         # TODO check if exists and add fallback
 
         if settings.DEBUG:
-            img = open(path, 'rb')
-            response = FileResponse(img)
+            fp = open(path, 'rb')
+            response = FileResponse(fp)
 
         else:  # for now, nginx will suffice
             response = HttpResponse(content_type=content_type)
