@@ -1,6 +1,7 @@
 from django.db import models
 from dynamic_file.models import DynamicFile
 
+
 class TestModel(models.Model):
     name = models.CharField(
         max_length=28,
