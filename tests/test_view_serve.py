@@ -1,11 +1,8 @@
 from django.http import FileResponse
 from django.http import HttpResponse
 from django.test import TestCase
-from django.apps import apps
+from django.test import override_settings
 from django.conf import settings
-from django.urls import reverse
-
-from django.test import TestCase, override_settings
 
 from rest_framework.test import APIRequestFactory
 from rest_framework import status
@@ -41,6 +38,7 @@ class ServeDynamicFileTestCase(TestCase):
         request = factory.get('')
 
         response = self.view(request, pk=self.instance_1.pk)
+        expected_path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, self.instance_1.file.name)
 
         assert response.status_code is status.HTTP_200_OK
         assert isinstance(response, HttpResponse)
@@ -48,7 +46,7 @@ class ServeDynamicFileTestCase(TestCase):
         assert 'Content-Type' in response.headers.keys()
         assert 'Content-Disposition' in response.headers.keys()
         assert 'Content-Encoding' in response.headers.keys()
-        assert response.headers['X-Accel-Redirect'] == os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, self.instance_1.file.name)
+        assert response.headers['X-Accel-Redirect'] == expected_path
 
         with open(response.headers['X-Accel-Redirect'], 'rb') as file:
             assert file.read() == self.instance_1.file.read()
