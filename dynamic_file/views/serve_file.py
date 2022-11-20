@@ -53,11 +53,12 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
         if settings.DEBUG:
             fp = open(path, 'rb')
             response = FileResponse(fp)
+            response.filename = filename
 
         else:  # for now, nginx will suffice
             response = HttpResponse(content_type=content_type)
-            response["Content-Disposition"] = "inline; filename={0}".format(filename)
-            response["Content-Encoding"] = encoding
+            response['Content-Disposition'] = 'inline; filename={0}'.format(filename)
+            response['Content-Encoding'] = encoding
 
             location = os.path.normpath(path)
             response['X-Accel-Redirect'] = location
