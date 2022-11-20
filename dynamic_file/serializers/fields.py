@@ -8,12 +8,6 @@ from dynamic_file.models import DynamicFile
 class _DynamicFileFieldMixin():
     _Model = DynamicFile()
     _view_name = None
-    # def __init__(self, view_name=None, related_field_name=None, fallback_strategy=settings.DYNAMIC_FILE_FALLBACK_METHOD, *args, **kwargs):
-    #     kwargs['use_url'] = False
-    #     self.view_name = view_name
-    #     self.related_field_name = related_field_name
-    #     self.fallback_strategy = fallback_strategy
-    #     super().__init__(*args, **kwargs)
 
     def get_attribute(self, instance):
         value = super().get_attribute(instance)
@@ -36,9 +30,11 @@ class _DynamicFileFieldMixin():
         if hasattr(instance, '__invalid__'):
             rep = getattr(instance, '__url__')
         elif self.view_name and self.related_field_name:
-            rep = reverse(self.view_name, kwargs={'pk': getattr(instance, self.related_field_name).id} )
+            rep = reverse(self.view_name, kwargs={'pk': getattr(instance, self.related_field_name).id})
         else:
-            rep = self.parent.get_serve_url(instance)
+            method_name = f'get_{self.field_name}_url'
+            method = getattr(self.parent, method_name)
+            rep = method(instance)
 
         request = self.context.get('request', None)
         if request is not None:
@@ -67,7 +63,14 @@ class _DynamicFileFieldMixin():
 class DynamicFileField(_DynamicFileFieldMixin, serializers.FileField):
     _Model = DynamicFile
 
-    def __init__(self, view_name=None, related_field_name=None, fallback_strategy=settings.DYNAMIC_FILE_FALLBACK_METHOD, *args, **kwargs):
+    def __init__(
+        self,
+        view_name=None,
+        related_field_name=None,
+        fallback_strategy=settings.DYNAMIC_FILE_FALLBACK_METHOD,
+        *args,
+        **kwargs
+    ):
         kwargs['use_url'] = False
         self.view_name = view_name
         self.related_field_name = related_field_name
