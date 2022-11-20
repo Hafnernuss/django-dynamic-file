@@ -50,5 +50,7 @@ class ServeDynamicFileTestCase(TestCase):
         assert 'Content-Type' in response.headers.keys()
         assert 'Content-Disposition' in response.headers.keys()
         assert 'Content-Encoding' in response.headers.keys()
-
         assert response.headers['X-Accel-Redirect'] == os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, self.instance_1.file.name)
+
+        with open(response.headers['X-Accel-Redirect'], 'rb') as file:
+            assert file.read() == self.instance_1.file.read()
