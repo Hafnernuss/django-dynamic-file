@@ -19,7 +19,7 @@ class ServeDynamicFileTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.view = ServeDynamicFile
+        cls.view = ServeDynamicFile.as_view()
         cls.instance_1 = DynamicFile.objects.create(file=helpers.create_dummy_gif())
 
     @override_settings(DEBUG=True)
