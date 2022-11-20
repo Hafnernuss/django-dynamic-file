@@ -22,7 +22,7 @@ class ServeDynamicFileTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.view_name = 'serve_default'
+        cls.view = ServeDynamicFile
         cls.instance_1 = DynamicFile.objects.create(file=helpers.create_dummy_gif())
 
     @override_settings(DEBUG=True)
@@ -30,8 +30,7 @@ class ServeDynamicFileTestCase(TestCase):
         factory = APIRequestFactory()
         request = factory.get('')
 
-        view = ServeDynamicFile.as_view()
-        response = view(request, pk=self.instance_1.pk)
+        response = self.view(request, pk=self.instance_1.pk)
 
         assert response.status_code is status.HTTP_200_OK
         assert isinstance(response, FileResponse)
@@ -41,8 +40,7 @@ class ServeDynamicFileTestCase(TestCase):
         factory = APIRequestFactory()
         request = factory.get('')
 
-        view = ServeDynamicFile.as_view()
-        response = view(request, pk=self.instance_1.pk)
+        response = self.view(request, pk=self.instance_1.pk)
 
         assert response.status_code is status.HTTP_200_OK
         assert isinstance(response, HttpResponse)
