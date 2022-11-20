@@ -1,0 +1,12 @@
+[report]
+skip_covered = True
+
+[run]
+branch = True
+omit =
+    */migrations/*
+    *test*
+include =
+    dynamic_file/*
+[xml]
+output = cov.xml
