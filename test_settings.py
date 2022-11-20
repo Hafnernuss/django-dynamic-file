@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ROOT_URLCONF = 'DynamicFileTest.urls'
+ROOT_URLCONF = 'test_app.urls'
 
 TEMPLATES = [
     {

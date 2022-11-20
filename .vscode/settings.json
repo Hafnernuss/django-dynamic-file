@@ -6,4 +6,9 @@
         "--max-line-length=120",
         "--exclude=*/migrations/*.py"
     ],
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
 }
