@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.urls import reverse
 from rest_framework import serializers
 
 from dynamic_file.models import DynamicFile
@@ -11,44 +9,33 @@ class _DynamicFileFieldMixin():
 
     def get_attribute(self, instance):
         value = super().get_attribute(instance)
-        if value is None:
-            if self.fallback_strategy == 'IGNORE':
-                nullImg = self._Model()
-                setattr(nullImg, '__invalid__', True)
-                path = ''
-                if self.view_name:
-                    path = reverse(self.view_name, kwargs={'pk': instance.id})
-                else:
-                    path = self.parent.get_fallback_url(instance)
-                setattr(nullImg, '__url__', path)
-                return nullImg
-            elif self.fallback_strategy is None:
-                pass
-        return value
+        return value if value else '__invalid__'
 
-    def to_representation(self, instance):
-        if hasattr(instance, '__invalid__'):
-            rep = getattr(instance, '__url__')
-        elif self.view_name and self.related_field_name:
-            rep = reverse(self.view_name, kwargs={'pk': getattr(instance, self.related_field_name).id})
-        else:
-            method_name = f'get_{self.field_name}_url'
-            method = getattr(self.parent, method_name)
-            rep = method(instance)
+    def to_representation(self, dynamic_file):
+        if dynamic_file == '__invalid__':
+            method_name = f'get_{self.field_name}_fallback_url'
+            method = getattr(self.parent, method_name, None)
+            return method(self.parent.instance) if method else None
+
+        method_name = f'get_{self.field_name}_url'
+        method = getattr(self.parent, method_name)
+        rep = method(dynamic_file)
 
         request = self.context.get('request', None)
-        if request is not None:
-            rep = request.build_absolute_uri(rep)
-        return rep
+        return request.build_absolute_uri(rep) if request else rep
+
+    def run_validation(self, data):
+        value = self.to_internal_value(data)
+        self.run_validators(value)
+        return value
 
     def to_internal_value(self, data):
         instance = self.parent.instance
 
-        if data == '' and instance is not None and getattr(instance, self.field_name, None) is not None:
-            asset = getattr(instance, self.field_name)
-            asset.delete()
-            return None
-        elif data == '':
+        if data is None:
+            asset = getattr(instance, self.field_name, None) if instance else None
+            if asset:
+                asset.delete()
             return None
         elif instance is None or getattr(instance, self.field_name, None) is None:
             asset = self._Model.objects.create(file=data)
@@ -66,13 +53,11 @@ class DynamicFileField(_DynamicFileFieldMixin, serializers.FileField):
     def __init__(
         self,
         view_name=None,
-        related_field_name=None,
-        fallback_strategy=settings.DYNAMIC_FILE_FALLBACK_METHOD,
+        view_args={},
         *args,
         **kwargs
     ):
         kwargs['use_url'] = False
         self.view_name = view_name
-        self.related_field_name = related_field_name
-        self.fallback_strategy = fallback_strategy
+        self.view_args = view_args
         super().__init__(*args, **kwargs)
