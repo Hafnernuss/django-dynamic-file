@@ -4,7 +4,7 @@ django-dynamic-file
 A hopefully flexible approach to serving dynamic files with django.
 
 
-Usecase
+Introduction
 =======
 Currently there are many other file handling libraries out there, most of them designed
 to handle files efficiently, make use of various storage backends or provide a good admin integration.
