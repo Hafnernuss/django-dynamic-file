@@ -17,7 +17,7 @@ This is done by wrapping `FileField` in their own model.
 The following documents provide a guide on how to install, configure and use this library.
 
 .. toctree::
- :maxdepth: 2
+  :maxdepth: 2
 
   installation
   configuration
