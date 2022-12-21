@@ -19,7 +19,7 @@ The following documents provide a guide on how to install, configure and use thi
 .. toctree::
  :maxdepth: 2
 
- installation
- configuration
+  installation
+  configuration
 
 
