@@ -20,6 +20,6 @@ The following documents provide a guide on how to install, configure and use thi
  :maxdepth: 2
 
  installation
- coverage
+ configuration
 
 
