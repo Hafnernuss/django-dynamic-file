@@ -14,8 +14,9 @@ methods for applying generic permissions to serving, updating and deleting files
 
 This is done by wrapping `FileField` in their own model.
 
-You may read more about the usage of this library `at the official documentation site`_.
+The following documents provide a guide on how to install, configure and use this library.
+
+.. toctree::
+ :maxdepth: 2
 
 
-
-.. _at the official documentation site: https://django-dynamic-file.readthedocs.io/en/latest/
