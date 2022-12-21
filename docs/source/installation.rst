@@ -5,16 +5,16 @@ Installation & Setup
 This document will outline the installation process of this library.
 
 **********************
-Install from pyp
+Install from pypy
 **********************
 TBD, once this library has reached a certain stable state.
 
 **********************
 Install from GitHub
 **********************
-This library can be directly installed form github via the following command:::
+This library can be directly installed form github via the following command:
 
-.. code-block::
+.. code-block:: bash
 
     pip install git+https://github.com/Hafnernuss/django-dynamic-file@master
 
@@ -22,7 +22,7 @@ This library can be directly installed form github via the following command:::
 **********************
 Add to installed apps
 **********************
-Simply add `dynamic_file` to your installed apps inside `settings.py` file:
+Simply add ``dynamic_file`` to your installed apps inside ``settings.py`` file:
 
 .. code-block:: python3
 
@@ -31,3 +31,5 @@ Simply add `dynamic_file` to your installed apps inside `settings.py` file:
         'dynamic_file',
         '...',
     ]
+
+Before running any migrations, it is **highly** recommended to read the :ref:`configuration guide <configuration>`.
