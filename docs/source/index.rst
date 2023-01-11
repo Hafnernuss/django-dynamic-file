@@ -1,7 +1,7 @@
 ######################
 django-dynamic-file
 ######################
-A hopefully flexible approach to serving dynamic files with django.
+A hopefully flexible approach to serving files with django.
 
 ==============
 Introduction
@@ -21,5 +21,4 @@ The following documents provide a guide on how to install, configure and use thi
 
   installation
   configuration
-
-
+  usage

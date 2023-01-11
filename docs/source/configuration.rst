@@ -4,4 +4,12 @@
 Configuration
 ######################
 
-TBD.
+The following configuration options are available:
+
+DYNAMIC_FILE_STORAGE_LOCATION
+****************************************************
+.. code-block:: python3
+
+  DYNAMIC_FILE_STORAGE_LOCATION = 'files'
+
+Defines the location for uploaded files.

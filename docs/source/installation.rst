@@ -41,7 +41,7 @@ If one settings has to be changed, they have to be defined inside the ``settings
 
 
 DYNAMIC_FILE_UPLOADED_BY_MODEL
-******************************
+****************************************************
 .. code-block:: python3
 
   DYNAMIC_FILE_UPLOADED_BY_MODEL = AUTH_USER_MODEL
@@ -50,7 +50,7 @@ This setting defines the foreign key that determines which entity has uploaded t
 
 
 DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME
-******************************
+****************************************************
 .. code-block:: python3
 
   DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = 'uploaded_files'
@@ -61,7 +61,7 @@ Before running any migrations, it is **highly** recommended to read the :ref:`co
 
 
 DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY
-******************************
+****************************************************
 .. code-block:: python3
 
   DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY = '__first__'
@@ -69,4 +69,13 @@ DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY
 In case the model specified by ``DYNAMIC_FILE_UPLOADED_BY_MODEL`` is not the initial migration, the actual migration
 step can be defined here.
 
-Before running any migrations, it is **highly** recommended to read the :ref:`configuration guide <configuration>`.
+Next Steps
+****************************************************
+When all above parameters are checked and/or adapted, initial migrations should be performed:
+
+.. code-block:: python3
+
+  python manage.py migrate
+
+| Further configuration parameters can be reviewed :ref:`here <configuration>`.
+| An in-depth usage guide is available :ref:`here <usage>`.
