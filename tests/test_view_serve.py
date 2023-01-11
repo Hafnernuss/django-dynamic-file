@@ -10,6 +10,8 @@ from rest_framework import status
 from dynamic_file.models import DynamicFile
 from dynamic_file.views import ServeDynamicFile
 
+from test_app.views import ServeTestFile
+
 import os
 
 import helpers
@@ -50,3 +52,22 @@ class ServeDynamicFileTestCase(TestCase):
 
         with open(response.headers['X-Accel-Redirect'], 'rb') as file:
             assert file.read() == self.instance_1.file.read()
+
+
+class ServeCustomDynamicFileTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.view = ServeTestFile.as_view()
+        cls.instance_1 = DynamicFile.objects.create(file=helpers.create_dummy_gif())
+
+    @override_settings(DEBUG=True)
+    def test_serve_content(self):
+        factory = APIRequestFactory()
+        request = factory.get('')
+
+        response = self.view(request, key=self.instance_1.pk)
+
+        assert response.status_code is status.HTTP_200_OK
+        assert isinstance(response, FileResponse)
+        assert response.filename == self.instance_1.file.name
