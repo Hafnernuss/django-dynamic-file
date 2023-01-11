@@ -131,3 +131,11 @@ a serializer method following the syntax ``get_{field_name}_fallback_url(self, i
 ***************************************************
 Defining views for file CRUD operations (optional)
 ***************************************************
+As stated earlier, defining custom views  is optional.
+The provided default view is suitable for serving files identified by their primary key.
+
+If this behaviour is not sufficient, a custom view can be defined quite easily:
+
+```
+TBD
+```
