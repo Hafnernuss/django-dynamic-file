@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from rest_framework import serializers
 
 from dynamic_file.models import DynamicFile
@@ -6,6 +8,7 @@ from dynamic_file.models import DynamicFile
 class _DynamicFileFieldMixin():
     _Model = DynamicFile()
     _view_name = None
+    _view_args = {}
 
     def get_attribute(self, instance):
         value = super().get_attribute(instance)
@@ -17,9 +20,15 @@ class _DynamicFileFieldMixin():
             method = getattr(self.parent, method_name, None)
             return method(self.parent.instance) if method else None
 
-        method_name = f'get_{self.field_name}_url'
-        method = getattr(self.parent, method_name)
-        rep = method(dynamic_file)
+        if self._view_name:
+            args = {}
+            for k, v in self._view_args.items():
+                args[k] = getattr(dynamic_file, v)
+            rep = reverse(self._view_name, kwargs=args)
+        else:
+            method_name = f'get_{self.field_name}_url'
+            method = getattr(self.parent, method_name)
+            rep = method(dynamic_file)
 
         request = self.context.get('request', None)
         return request.build_absolute_uri(rep) if request else rep
@@ -58,6 +67,6 @@ class DynamicFileField(_DynamicFileFieldMixin, serializers.FileField):
         **kwargs
     ):
         kwargs['use_url'] = False
-        self.view_name = view_name
-        self.view_args = view_args
+        self._view_name = view_name
+        self._view_args = view_args
         super().__init__(*args, **kwargs)
