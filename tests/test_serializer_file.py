@@ -35,6 +35,14 @@ class ModelOneToOneSerializerWithFallback(serializers.ModelSerializer):
         fields = ['file']
 
 
+class ModelOneToOneSerializerWithArgument(serializers.ModelSerializer):
+    file = DynamicFileField(view_name='serve_default', view_args={'pk': 'id'})
+
+    class Meta:
+        model = TestModelOneToOne
+        fields = ['file']
+
+
 class DynamicFileSerializerFieldTestCase(TestCase):
 
     @classmethod
@@ -72,6 +80,15 @@ class DynamicFileSerializerFieldTestCase(TestCase):
 
         expected = {'file': f'/serve/{file.id}'}
         actual = ModelOneToOneSerializer(instance=instance).data
+
+        assert expected == actual
+
+    def test_serialize_view_arg(self):
+        file = DynamicFile.objects.create(file=helpers.create_dummy_gif())
+        instance = TestModelOneToOne.objects.create(file=file)
+
+        expected = {'file': f'/serve/{file.id}'}
+        actual = ModelOneToOneSerializerWithArgument(instance=instance).data
 
         assert expected == actual
 
