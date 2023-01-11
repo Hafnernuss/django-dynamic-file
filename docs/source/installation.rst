@@ -26,11 +26,11 @@ Simply add ``dynamic_file`` to your installed apps inside ``settings.py`` file:
 
 .. code-block:: python3
 
-    INSTALLED_APPS = [
-        '...',
-        'dynamic_file',
-        '...',
-    ]
+  INSTALLED_APPS = [
+    '...',
+    'dynamic_file',
+    '...',
+  ]
 
 **************************
 First time configuration
@@ -56,9 +56,6 @@ DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME
   DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = 'uploaded_files'
 
 Defines the related name for all uploaded files that is added to the model specified by ``DYNAMIC_FILE_UPLOADED_BY_MODEL``.
-
-Before running any migrations, it is **highly** recommended to read the :ref:`configuration guide <configuration>`.
-
 
 DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY
 ****************************************************

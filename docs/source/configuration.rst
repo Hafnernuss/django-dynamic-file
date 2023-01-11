@@ -13,3 +13,7 @@ DYNAMIC_FILE_STORAGE_LOCATION
   DYNAMIC_FILE_STORAGE_LOCATION = 'files'
 
 Defines the location for uploaded files.
+
+Next Steps
+****************************************************
+An in-depth usage guide is available :ref:`here <usage>`.

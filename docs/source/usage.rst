@@ -5,3 +5,125 @@ Usage
 ######################
 
 This document will outline the installation process of this library.
+This library uses models to store files. This means, three components are needed for serving/handling files:
+
+#. Defining dynamic files in models
+#. Adapting serializers
+#. Defining views for file CRUD operations (optional)
+
+
+#################################
+Defining dynamic files in models
+#################################
+
+As an example, a model ``Company`` should have a ``dynamic file``, a ``ForeignKey`` (or ``OneToOneField``) has to be defined. As an example.
+
+.. code-block:: python3
+
+  from dynamic_file.models import DynamicFile
+  from django.db import models
+
+  class Company(models.Model):
+
+    name = models.TextField()
+
+    image = models.OneToOneField(
+        DynamicFile,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='company_image'
+    )
+
+
+#################################
+Adapting serializers
+#################################
+
+To make use of the added file, the serializer has to be adapted. For this, a serializer field is provided
+by the library. In essence, this field needs to be told which view is used for serving the file.
+
+There are several ways of doing this, depending on the use case.
+For the following examples, the following view definition is assumed:
+
+.. code-block:: python3
+
+  from dynamic_file.views import ServeDynamicFile
+
+  urlpatterns = [
+      path('serve/<int:pk>', ServeDynamicFile.as_view(), name='serve_default'),
+  ]
+
+
+Usage with method
+****************************************************
+
+.. code-block:: python3
+
+  from dynamic_file.serializers import DynamicFileField
+  from .models import Company
+
+  class CompanySerializer(serializers.ModelSerializer):
+      file = DynamicFileField(allow_null=True)
+
+      def get_file_url(self, dynamic_file):
+          return reverse('serve_default', kwargs={'pk': dynamic_file.id})
+
+      class Meta:
+          model = Company
+          fields = ['file']
+
+
+This method is similar to a standard ``SerializerMethodField`` and works in a similar fashion.
+For each ``DynamicFileField``, a method needs to be defined, which follows the structure ``get_{field_name}_url(self, dynamic_file)``.
+This method needs to return an url pointing to the serving url (For now, let's assume the view ``serve_default`` is defined somewhere).
+
+Advantage:
+
+* Highly flexible: depending on the context, different serving urls can be used, and an arbitrary number of arguments can be passed
+
+Disadvantage:
+
+* Some developers might find this quite verbose, and for simple use cases, it maybe is.
+
+Usage with arguments
+****************************************************
+A more concise way to specify the view would be using arguments for the ``DynamicFileField``:
+
+.. code-block:: python3
+
+  from dynamic_file.serializers import DynamicFileField
+  from .models import Company
+
+  class CompanySerializer(serializers.ModelSerializer):
+      file = DynamicFileField(allow_null=True, view_name='serve_default', view_args={'pk': 'pk'})
+
+      class Meta:
+          model = Company
+          fields = ['file']
+
+Special attention has to be given to the passing of ``view_args``. The key is (as usual) the name of the view argument,
+and the value is the *name* of the field on the ``DynamicFile``. The example above produces the **same** target url
+as the example with the method.
+
+Advantage:
+
+* More concise syntax
+
+Disadvantage:
+
+* Not as flexible, but sufficient for most use-cases.
+
+
+Handling of null values
+****************************************************
+Sometimes, foreign keys to a ``DynamicFile`` are nullable. This is of course a perfectly acceptable use-case.
+As a default (fallback), the serializer field will return ``null``/``None`` in this case. However, this behaviour can be adapted by specifying
+a serializer method following the syntax ``get_{field_name}_fallback_url(self, instance)``:
+
+.. code-block:: python3
+
+    def get_file_fallback_url(self, instance):
+        return reverse('some_default_view', kwargs={'pk': instance.id})
+
+.. note::
+   ``instance`` in this case refers to the model that has the ``DynamicFile`` attached, in this example an instance of ``Model``
