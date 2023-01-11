@@ -77,11 +77,11 @@ This method is similar to a standard ``SerializerMethodField`` and works in a si
 For each ``DynamicFileField``, a method needs to be defined, which follows the structure ``get_{field_name}_url(self, dynamic_file)``.
 This method needs to return an url pointing to the serving url (For now, let's assume the view ``serve_default`` is defined somewhere).
 
-Advantage:
+**Pro**:
 
 * Highly flexible: depending on the context, different serving urls can be used, and an arbitrary number of arguments can be passed
 
-Disadvantage:
+**Con**:
 
 * Some developers might find this quite verbose, and for simple use cases, it maybe is.
 
@@ -105,11 +105,11 @@ Special attention has to be given to the passing of ``view_args``. The key is (a
 and the value is the *name* of the field on the ``DynamicFile``. The example above produces the **same** target url
 as the example with the method.
 
-Advantage:
+**Pro**:
 
 * More concise syntax
 
-Disadvantage:
+**Con**:
 
 * Not as flexible, but sufficient for most use-cases.
 
@@ -127,3 +127,7 @@ a serializer method following the syntax ``get_{field_name}_fallback_url(self, i
 
 .. note::
    ``instance`` in this case refers to the model that has the ``DynamicFile`` attached, in this example an instance of ``Model``
+
+###################################################
+Defining views for file CRUD operations (optional)
+###################################################
