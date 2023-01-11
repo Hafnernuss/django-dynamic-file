@@ -12,9 +12,9 @@ This library uses models to store files. This means, three components are needed
 #. Defining views for file CRUD operations (optional)
 
 
-#################################
+***************************************************
 Defining dynamic files in models
-#################################
+***************************************************
 
 As an example, a model ``Company`` should have a ``dynamic file``, a ``ForeignKey`` (or ``OneToOneField``) has to be defined. As an example.
 
@@ -35,9 +35,9 @@ As an example, a model ``Company`` should have a ``dynamic file``, a ``ForeignKe
     )
 
 
-#################################
+***************************************************
 Adapting serializers
-#################################
+***************************************************
 
 To make use of the added file, the serializer has to be adapted. For this, a serializer field is provided
 by the library. In essence, this field needs to be told which view is used for serving the file.
@@ -128,6 +128,6 @@ a serializer method following the syntax ``get_{field_name}_fallback_url(self, i
 .. note::
    ``instance`` in this case refers to the model that has the ``DynamicFile`` attached, in this example an instance of ``Model``
 
-###################################################
+***************************************************
 Defining views for file CRUD operations (optional)
-###################################################
+***************************************************
