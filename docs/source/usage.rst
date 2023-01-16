@@ -9,7 +9,7 @@ This library uses models to store files. This means, three components are needed
 
 #. Defining dynamic files in models
 #. Adapting serializers
-#. Defining views for file CRUD operations (optional)
+#. Defining views for file CRUD operations
 
 
 ***************************************************
@@ -129,13 +129,21 @@ a serializer method following the syntax ``get_{field_name}_fallback_url(self, i
    ``instance`` in this case refers to the model that has the ``DynamicFile`` attached, in this example an instance of ``Model``
 
 ***************************************************
-Defining views for file CRUD operations (optional)
+Defining views
 ***************************************************
 As stated earlier, defining custom views  is optional.
 The provided default view is suitable for serving files identified by their primary key.
+There is a provided default view which handles file serving via a passed ``pk``, with the default
+``drf`` permssions applied. However, it is necessary to include this view in an ``urls.py`` file:
 
-If this behaviour is not sufficient, a custom view can be defined quite easily:
 
-```
-TBD
-```
+.. code-block:: python3
+
+    from dynamic_file.views import ServeDynamicFile
+
+    urlpatterns = [
+      path('serve/<int:pk>', ServeDynamicFile.as_view(), name='serve_default'),
+    ]
+
+
+Now, this view name (``serve_default``) can be used in serializers, as described above.

@@ -7,13 +7,15 @@ from rest_framework.views import APIView
 
 from dynamic_file.models import DynamicFile
 
+from rest_framework.settings import api_settings
+
 import mimetypes
 import os
 
 
 class _DynamicContentMixin():
     _Model = DynamicFile
-    permission_classes = []
+    permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES
 
     lookup_field = 'pk'
     lookup_url_kwarg = 'pk'
@@ -30,10 +32,7 @@ class _DynamicContentMixin():
 
     def get_object(self):
         filter_kwargs = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
-        qs = self._Model.objects.filter(**filter_kwargs)
-        if qs.count() == 0:
-            return None
-        return qs.first()
+        return self._Model.objects.filter(**filter_kwargs).first()
 
 
 class ServeDynamicFile(_DynamicContentMixin, APIView):
