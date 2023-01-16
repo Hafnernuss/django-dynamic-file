@@ -30,10 +30,7 @@ class _DynamicContentMixin():
 
     def get_object(self):
         filter_kwargs = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
-        qs = self._Model.objects.filter(**filter_kwargs)
-        if qs.count() == 0:
-            return None
-        return qs.first()
+        return self._Model.objects.filter(**filter_kwargs).first()
 
 
 class ServeDynamicFile(_DynamicContentMixin, APIView):
