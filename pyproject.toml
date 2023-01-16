@@ -1,0 +1,32 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-dynamic-file"
+version = "0.0.1"
+description = "A flexible approach to handling and serving files with django"
+readme = "README.rst"
+authors = [{ name = "Philipp Hafner", email = "philipp@hafner.xyz" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3"
+]
+keywords = ["django", "file"]
+dependencies = [
+    "djangorestframework >= 3.14.0"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/Hafnernuss/django-dynamic-file"
+
+[tool.setuptools]
+packages = ["dynamic_file"]
