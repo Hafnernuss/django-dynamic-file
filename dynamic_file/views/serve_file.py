@@ -7,13 +7,15 @@ from rest_framework.views import APIView
 
 from dynamic_file.models import DynamicFile
 
+from rest_framework.settings import api_settings
+
 import mimetypes
 import os
 
 
 class _DynamicContentMixin():
     _Model = DynamicFile
-    permission_classes = []
+    permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES
 
     lookup_field = 'pk'
     lookup_url_kwarg = 'pk'
