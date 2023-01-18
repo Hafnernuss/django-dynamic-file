@@ -4,3 +4,5 @@ pytest-django==4.5.2
 flake8==5.0.4
 djangorestframework==3.14.0
 pytest-cov==4.0.0
+bumpver==2022.1120
+build==0.10.0

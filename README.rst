@@ -1,5 +1,5 @@
 ==========================
-django-dynamic-file 0.0.1
+django-dynamic-file 0.1.0
 ==========================
 A hopefully flexible approach to serving dynamic files with django.
 
