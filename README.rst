@@ -5,6 +5,7 @@ django-dynamic-file 0.2.0
 :target: https://coveralls.io/github/Hafnernuss/django-dynamic-file?branch=0.2.0
 
 
+
 A hopefully flexible approach to serving dynamic files with django.
 
 
