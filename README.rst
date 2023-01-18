@@ -1,8 +1,10 @@
 ==========================
 django-dynamic-file 0.2.0
 ==========================
-.. image:: https://coveralls.io/repos/github/Hafnernuss/django-dynamic-file/badge.svg?branch=0.2.0
-:target: https://coveralls.io/github/Hafnernuss/django-dynamic-file?branch=0.2.0
+
+.. image:: https://coveralls.io/repos/github/Hafnernuss/django-dynamic-file/badge.svg?branch=master
+    :target: https://coveralls.io/github/Hafnernuss/django-dynamic-file?branch=master
+
 
 
 A hopefully flexible approach to serving dynamic files with django.
