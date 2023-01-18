@@ -37,9 +37,9 @@ package-dir = {"dynamic_file" = "dynamic_file"}
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 current_version = "0.1.0"
 commit_message = "bump version {old_version} -> {new_version}"
-commit = true
-tag = true
-push = true
+commit = false
+tag = false
+push = false
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
