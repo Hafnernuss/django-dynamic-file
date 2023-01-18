@@ -18,7 +18,8 @@ classifiers = [
 ]
 keywords = ["django", "file"]
 dependencies = [
-    "djangorestframework >= 3.14.0"
+    "djangorestframework >= 3.12.4",
+    "Django >= 3.0"
 ]
 requires-python = ">=3.9"
 
