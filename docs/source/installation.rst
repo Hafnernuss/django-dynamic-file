@@ -5,9 +5,14 @@ Installation & Setup
 This document will outline the installation process of this library.
 
 **********************
-Install from pypy
+Install from pypi
 **********************
-TBD, once this library has reached a certain stable state.
+This library can be installed from pypi via the following command:
+
+.. code-block:: bash
+
+    pip install django-dynamic-file
+
 
 **********************
 Install from GitHub
