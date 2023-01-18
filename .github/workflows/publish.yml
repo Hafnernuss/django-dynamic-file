@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           repository_url: https://test.pypi.org/legacy/
 
-      - name: Publish distribution 📦 to PyPI
+      - name: Publish distribution to PyPI
         if: ${{ github.event_name == 'push' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
