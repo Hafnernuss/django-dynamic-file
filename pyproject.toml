@@ -46,8 +46,3 @@ push = false
     'current_version = "{version}"',
     'version = "{version}"',
 ]
-"README.rst" = [
-    "{version}",
-    "{pep440_version}",
-]
-
