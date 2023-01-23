@@ -30,6 +30,11 @@ class DynamicFileModelTestCase(TestCase):
 
         assert instance.description == desc
 
+    def test_name(self):
+        instance = DynamicFile.objects.create(file=helpers.create_dummy_gif())
+
+        assert instance.name == instance.file.name
+
     def test_storage_location(self):
         instance = DynamicFile.objects.create(file=helpers.create_dummy_gif())
 
