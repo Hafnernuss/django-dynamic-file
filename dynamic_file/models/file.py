@@ -11,6 +11,10 @@ class DynamicFile(DynamicFileBase):
     The concrete file for this model.
     '''
 
+    @property
+    def name(self):
+        return self.file.name
+
     def __str__(self):
         '''
         String representation of this model. Defaults to the name of the file.

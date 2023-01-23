@@ -1,5 +1,5 @@
 ==========================
-django-dynamic-file 0.2.0
+django-dynamic-file
 ==========================
 
 .. image:: https://coveralls.io/repos/github/Hafnernuss/django-dynamic-file/badge.svg?branch=master
