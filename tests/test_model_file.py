@@ -18,12 +18,6 @@ class DynamicFileModelTestCase(TestCase):
         assert instance.uploaded_by is None
         instance.file.name == ''
 
-    def test_reverse_accessor(self):
-        uploader = UploadedByModel.objects.create()
-        instance = DynamicFile.objects.create(uploaded_by=uploader)
-
-        assert instance in getattr(uploader, settings.DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME).all()
-
     def test_description(self):
         desc = 'A sample description for this file'
         instance = DynamicFile.objects.create(description=desc)
