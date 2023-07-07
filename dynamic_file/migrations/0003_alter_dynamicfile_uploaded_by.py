@@ -4,6 +4,10 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
+from django.conf import settings
+DYNAMIC_FILE_UPLOADED_BY_MODEL = settings.DYNAMIC_FILE_UPLOADED_BY_MODEL
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -15,7 +19,7 @@ class Migration(migrations.Migration):
             model_name='dynamicfile',
             name='uploaded_by',
             field=models.ForeignKey(blank=True, help_text='The owner/uploader of this file', null=True,
-                                    on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='test_app.testmodel'),
+                                    on_delete=django.db.models.deletion.SET_NULL, related_name='+', to=DYNAMIC_FILE_UPLOADED_BY_MODEL),
         ),
         migrations.AddField(
             model_name='dynamicfile',
