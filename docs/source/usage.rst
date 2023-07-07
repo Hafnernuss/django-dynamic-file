@@ -147,3 +147,48 @@ There is a provided default view which handles file serving via a passed ``pk``,
 
 
 Now, this view name (``serve_default``) can be used in serializers, as described above.
+
+
+***************************************************
+Admin integration
+***************************************************
+``DynamicFile`` has a pretty basic but useful admin integration.
+It supports a preview rendering in case the file is an image.
+In case it's not an image, no preview will be shown.
+
+
+.. code-block:: python3
+
+    from .models import Company
+    from django.contrib import admin
+
+    from dynamic_file.admin import preview as image_preview
+
+    @admin.register(Company)
+    class CompanyAdmin(admin.ModelAdmin):
+        fields = ['image', 'preview']
+        readonly_fields = ['preview']
+
+        def preview(self, instance):
+            return image_preview(instance.image)
+
+
+Files can also be downloaded from within the admin with a provided view.
+Simply add the following to your ``urls.py`` and make sure that you place it
+**before** the actual import of the admin pages:
+
+.. code-block:: python3
+
+  from dynamic_file.views import ServeDynamicFileAdmin
+
+  urlpatterns = [
+
+      #... your other includes
+
+      path('admin/download/<str:name>', ServeDynamicFileAdmin.as_view()),
+      path('admin/', admin.site.urls),
+  ]
+
+
+
+This enables downloadable files for every user that has access to the admin page.
