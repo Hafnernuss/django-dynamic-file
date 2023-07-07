@@ -20,7 +20,7 @@ def preview(dynamic_file):
 @admin.register(DynamicFile)
 class DynamicFileAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
-    readonly_fields = ['preview']
+    readonly_fields = ['preview', 'created_at', 'updated_at']
 
     def preview(self, instance):
         return preview(instance)
