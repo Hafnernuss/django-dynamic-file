@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('test_app', '0003_testmodelonetoone'),
         ('dynamic_file', '0002_alter_dynamicfile_file'),
     ]
 
