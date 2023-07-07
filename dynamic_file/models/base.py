@@ -45,6 +45,24 @@ class DynamicFileBase(models.Model):
     NOTE: Changing those settings is only supported _before_ running the first migration
     '''
 
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        blank=True,
+        help_text=_('The creation date of this file')
+    )
+    '''
+    Read-only field, specifying the upload date of this file.
+    '''
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        blank=True,
+        help_text=_('The last update date of this file')
+    )
+    '''
+    Read-only field, specifying the update date of this file.
+    '''
+
     @property
     def name(self):
         '''
