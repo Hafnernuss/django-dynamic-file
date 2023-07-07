@@ -3,6 +3,7 @@ from django.http.response import FileResponse
 from django.http.response import HttpResponse
 
 from rest_framework.views import APIView
+from rest_framework import status
 from rest_framework.exceptions import NotFound
 
 from dynamic_file.models import DynamicFile
@@ -41,20 +42,24 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
         content_type, encoding = mimetypes.guess_type(filename)
         path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, filename)
 
-        if settings.DEBUG:
-            fp = open(path, 'rb')
-            response = FileResponse(fp)
-            response.filename = filename
+        try:
+            if settings.DEBUG:
+                fp = open(path, 'rb')
+                response = FileResponse(fp)
+                response.filename = filename
 
-        else:  # for now, nginx will suffice
-            response = HttpResponse(content_type=content_type)
-            response['Content-Disposition'] = 'inline; filename={0}'.format(filename)
-            response['Content-Encoding'] = encoding
+            else:  # for now, nginx will suffice
+                response = HttpResponse(content_type=content_type)
+                response['Content-Disposition'] = 'inline; filename={0}'.format(filename)
+                response['Content-Encoding'] = encoding
 
-            location = os.path.normpath(path)
-            response['X-Accel-Redirect'] = location
+                location = os.path.normpath(path)
+                response['X-Accel-Redirect'] = location
 
-        return response
+            return response
+        except Exception as e:
+            print(e)
+            return HttpResponse('File not found', status=status.HTTP_404_NOT_FOUND)
 
 
 class ServeDynamicFileAdmin(ServeDynamicFile):

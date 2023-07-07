@@ -6,12 +6,15 @@ from django.utils.translation import gettext as _
 
 
 def preview(dynamic_file):
-    mimetype = dynamic_file.mimetype
-    if mimetype and 'image' in mimetype:
-        src = dynamic_file.to_base64_src()
-        return mark_safe(f'<img src="{src}" width="150" />')
-    else:
-        return _('No preview available')
+    try:
+        mimetype = dynamic_file.mimetype
+        if mimetype and 'image' in mimetype:
+            src = dynamic_file.to_base64_src()
+            return mark_safe(f'<img src="{src}" width="150" />')
+        else:
+            return _('No preview available')
+    except Exception as e:
+        return _(f'No preview available: {str(e)}')
 
 
 @admin.register(DynamicFile)

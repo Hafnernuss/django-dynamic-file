@@ -7,7 +7,7 @@ This document provides an overview about breaking changes and new features.
 
 
 ***************************************************
-0.4.0
+0.5.0
 ***************************************************
 
 Changes
@@ -27,6 +27,6 @@ Features
 * Added some ``base64`` utilities for commonly used tasks
 
 ***************************************************
-0.3.0
+0.4.0
 ***************************************************
 First useable version
