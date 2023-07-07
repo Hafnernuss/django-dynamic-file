@@ -13,8 +13,8 @@ This library aims at providing an easy interface for handling files in conjuncti
 methods for applying generic permissions to serving, updating and deleting files.
 
 This is done by wrapping `FileField` in their own model.
-
 The following documents provide a guide on how to install, configure and use this library.
+
 
 .. toctree::
   :maxdepth: 1
@@ -22,3 +22,6 @@ The following documents provide a guide on how to install, configure and use thi
   installation
   configuration
   usage
+  changelog
+  api
+

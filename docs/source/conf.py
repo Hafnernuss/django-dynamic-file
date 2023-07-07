@@ -13,7 +13,7 @@ django.setup()
 
 
 project = 'django-dynamic-file'
-copyright = '2022, Philipp Hafner'
+copyright = '2023, Philipp Hafner'
 author = 'Philipp Hafner'
 
 release = '0.0'

@@ -8,4 +8,4 @@ SMALL_GIF = (
 
 
 def create_dummy_gif(name='test.gif'):
-    return SimpleUploadedFile('test.gif', SMALL_GIF)
+    return SimpleUploadedFile(name, SMALL_GIF)

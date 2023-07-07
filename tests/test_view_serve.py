@@ -53,6 +53,14 @@ class ServeDynamicFileTestCase(TestCase):
         with open(response.headers['X-Accel-Redirect'], 'rb') as file:
             assert file.read() == self.instance_1.file.read()
 
+    def test_not_found(self):
+        factory = APIRequestFactory()
+        request = factory.get('')
+
+        response = self.view(request, pk=-1)
+
+        assert response.status_code is status.HTTP_404_NOT_FOUND
+
 
 class ServeCustomDynamicFileTestCase(TestCase):
 
