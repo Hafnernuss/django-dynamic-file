@@ -47,7 +47,9 @@ class DynamicFileBase(models.Model):
 
     @property
     def name(self):
-        return self.file.name
+        if self.file:
+            return self.file.name
+        return ''
 
     @property
     def read(self):

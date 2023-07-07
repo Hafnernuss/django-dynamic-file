@@ -2,8 +2,8 @@ from django.conf import settings
 from django.http.response import FileResponse
 from django.http.response import HttpResponse
 
-# from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
 
 from dynamic_file.models import DynamicFile
 
@@ -22,16 +22,6 @@ class _DynamicContentMixin():
     lookup_field = 'pk'
     lookup_url_kwarg = 'pk'
 
-    def get_file_name(self, file, _):
-        _, ext = os.path.splitext(file.name)
-        if not ext:
-            return file.name + mimetypes.guess_extension(file.content_type)
-        else:  # pragma: no cover
-            return file.name
-
-    def get_parent(self):
-        return None
-
     def get_object(self):
         filter_kwargs = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
         instance = self._Model.objects.filter(**filter_kwargs).first()
@@ -45,6 +35,8 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
         filename = None
         if instance:
             filename = instance.file.name
+        else:
+            raise NotFound()
 
         content_type, encoding = mimetypes.guess_type(filename)
         path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, filename)
