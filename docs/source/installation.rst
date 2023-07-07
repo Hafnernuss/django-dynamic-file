@@ -54,14 +54,6 @@ DYNAMIC_FILE_UPLOADED_BY_MODEL
 This setting defines the foreign key that determines which entity has uploaded the file. It defaults to the user model.
 
 
-DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME
-****************************************************
-.. code-block:: python3
-
-  DYNAMIC_FILE_UPLOADED_BY_RELATED_NAME = 'uploaded_files'
-
-Defines the related name for all uploaded files that is added to the model specified by ``DYNAMIC_FILE_UPLOADED_BY_MODEL``.
-
 DYNAMIC_FILE_UPLOADED_BY_MODEL_MIGRATION_DEPENDENCY
 ****************************************************
 .. code-block:: python3
