@@ -40,7 +40,7 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
             raise NotFound()
 
         content_type, encoding = mimetypes.guess_type(filename)
-        path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, filename)
+        path = os.path.join(settings.DYNAMIC_FILE_SERVE_LOCATION, filename)
 
         try:
             if settings.DEBUG:
