@@ -54,8 +54,7 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
                 response['Content-Disposition'] = 'inline; filename={0}'.format(filename)
                 response['Content-Encoding'] = encoding
 
-                location = os.path.normpath(path)
-                response['X-Accel-Redirect'] = {serve_path}
+                response['X-Accel-Redirect'] = serve_path
 
             return response
         except Exception as e:

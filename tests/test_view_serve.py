@@ -40,7 +40,7 @@ class ServeDynamicFileTestCase(TestCase):
         request = factory.get('')
 
         response = self.view(request, pk=self.instance_1.pk)
-        expected_path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, self.instance_1.file.name)
+        expected_path = os.path.join(settings.DYNAMIC_FILE_SERVE_LOCATION, self.instance_1.file.name)
 
         assert response.status_code is status.HTTP_200_OK
         assert isinstance(response, HttpResponse)
@@ -48,7 +48,7 @@ class ServeDynamicFileTestCase(TestCase):
         assert 'Content-Type' in response.headers.keys()
         assert 'Content-Disposition' in response.headers.keys()
         assert 'Content-Encoding' in response.headers.keys()
-        assert response.headers['X-Accel-Redirect'] == f'/{expected_path}'
+        assert response.headers['X-Accel-Redirect'] == expected_path
 
     def test_not_found(self):
         factory = APIRequestFactory()
