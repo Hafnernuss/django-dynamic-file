@@ -40,7 +40,7 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
             raise NotFound()
 
         content_type, encoding = mimetypes.guess_type(filename)
-        path = os.path.join(settings.DYNAMIC_FILE_STORAGE_LOCATION, filename)
+        path = os.path.join(settings.DYNAMIC_FILE_SERVE_LOCATION, filename)
 
         try:
             if settings.DEBUG:
@@ -54,7 +54,7 @@ class ServeDynamicFile(_DynamicContentMixin, APIView):
                 response['Content-Encoding'] = encoding
 
                 location = os.path.normpath(path)
-                response['X-Accel-Redirect'] = location
+                response['X-Accel-Redirect'] = f'/{location}'
 
             return response
         except Exception as e:
