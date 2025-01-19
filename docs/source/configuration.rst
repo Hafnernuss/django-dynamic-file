@@ -21,7 +21,7 @@ DYNAMIC_FILE_SERVE_LOCATION
   DYNAMIC_FILE_SERVE_LOCATION = DYNAMIC_FILE_STORAGE_LOCATION
 
 Defines the base location from which files are served.
-Defaults to DYNAMIC_FILE_STORAGE_LOCATION.
+Defaults to ``DYNAMIC_FILE_STORAGE_LOCATION``.
 This parameter is most useful in production environments
 where your application is containerized and files are served
 via a reverse proxy. In such setups, the path for serving does not

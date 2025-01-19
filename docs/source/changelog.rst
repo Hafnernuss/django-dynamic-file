@@ -7,6 +7,17 @@ This document provides an overview about breaking changes and new features.
 
 
 ***************************************************
+0.6.0
+***************************************************
+
+Changes
+****************************************************
+The setting ``DYNAMIC_FILE_SERVE_LOCATION`` has been added.
+This is useful for containerized production environments
+where the serve location not necessarily corresponds to
+the physical location.
+
+***************************************************
 0.5.0
 ***************************************************
 
