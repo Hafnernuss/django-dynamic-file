@@ -48,10 +48,7 @@ class ServeDynamicFileTestCase(TestCase):
         assert 'Content-Type' in response.headers.keys()
         assert 'Content-Disposition' in response.headers.keys()
         assert 'Content-Encoding' in response.headers.keys()
-        assert response.headers['X-Accel-Redirect'] == expected_path
-
-        with open(response.headers['X-Accel-Redirect'], 'rb') as file:
-            assert file.read() == self.instance_1.file.read()
+        assert response.headers['X-Accel-Redirect'] == f'/{expected_path}'
 
     def test_not_found(self):
         factory = APIRequestFactory()

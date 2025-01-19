@@ -6,5 +6,8 @@ if not hasattr(settings, 'DYNAMIC_FILE_UPLOADED_BY_MODEL'):
 if not hasattr(settings, 'DYNAMIC_FILE_STORAGE_LOCATION'):
     setattr(settings, 'DYNAMIC_FILE_STORAGE_LOCATION', 'files')
 
+if not hasattr(settings, 'DYNAMIC_FILE_SERVE_LOCATION'):
+    setattr(settings, 'DYNAMIC_FILE_SERVE_LOCATION', getattr(settings, 'DYNAMIC_FILE_STORAGE_LOCATION'))
+
 if not hasattr(settings, 'DYNAMIC_FILE_UPLOADED_BY_MIGRATION_DEPENDENCY'):
     setattr(settings, 'DYNAMIC_FILE_UPLOADED_BY_MIGRATION_DEPENDENCY', '__first__')

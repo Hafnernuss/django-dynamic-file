@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-dynamic-file"
-version = "0.5.2"
+version = "0.6.0"
 description = "A flexible approach to handling and serving files with django"
 readme = "README.rst"
 authors = [{ name = "Philipp Hafner", email = "philipp@hafner.xyz" }]
@@ -35,7 +35,7 @@ package-dir = {"dynamic_file" = "dynamic_file"}
 
 [tool.bumpver]
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
-current_version = "0.5.2"
+current_version = "0.6.0"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
 tag = false
